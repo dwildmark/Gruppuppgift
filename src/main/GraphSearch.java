@@ -1,4 +1,4 @@
-package gu;
+package main;
 import java.util.*;
 
 public class GraphSearch {

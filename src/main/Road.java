@@ -1,4 +1,4 @@
-package gu;
+package main;
 import java.util.ArrayList;
 
 public class Road {

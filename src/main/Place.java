@@ -1,4 +1,4 @@
-package gu;
+package main;
 
 public class Place {
     private String name;

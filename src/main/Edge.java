@@ -1,4 +1,4 @@
-package gu;
+package main;
 
 /**
  * Klassen Edge representerar en båge mellan två noder i en riktad graf. En båge

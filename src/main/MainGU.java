@@ -1,4 +1,4 @@
-package gu;
+package main;
 import javax.swing.SwingUtilities;
 
 public class MainGU {

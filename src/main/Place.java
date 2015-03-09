@@ -5,9 +5,10 @@ public class Place {
     private Position position;
     private double area;
     private int population;
-    // lade till lite för att passa filen places.txt,
-    //även metoder o toString-metod byggde jag på, Andreas
-    public Place(String name, double longitude, double latitude, double area, int population) {
+    // lade till lite fï¿½r att passa filen places.txt,
+    //ï¿½ven metoder o toString-metod byggde jag pï¿½, Andreas
+    public Place(String name, double longitude, double latitude, 
+    		double area, int population) {
         this.name = name;
         this.position = new Position(longitude, latitude);
         this.area = area;
@@ -26,6 +27,6 @@ public class Place {
     }
     
     public String toString() {
-        return "Name: " +name+ "Position: " +position+ "Area (ha): " +area+ "Invånare: " +population;
+        return "Name: " +name+ "Position: " +position+ "Area (ha): " +area+ "InvÃ¥nare: " +population;
     }
 }

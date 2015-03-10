@@ -5,8 +5,8 @@ public class Place {
     private Position position;
     private double area;
     private int population;
-    // lade till lite f�r att passa filen places.txt,
-    //�ven metoder o toString-metod byggde jag p�, Andreas
+    // lade till lite för att passa filen places.txt,
+    //även metoder o toString-metod byggde jag på, Andreas
     public Place(String name, double longitude, double latitude, 
     		double area, int population) {
         this.name = name;

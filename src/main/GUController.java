@@ -1,6 +1,7 @@
 package main;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,19 +18,24 @@ public class GUController {
 	private HashMap<String, Place> placeMap = new HashMap<String, Place>();
 	private HashMap<String, Road> roadMap = new HashMap<String, Road>();
 	private MapView mapView;
+	private UI ui;
 	
 
 	public GUController(String string, Position mapLeftUp,
 			Position mapRightDown, String string2, String string3) {
-		mapView = new MapView("C:/Users/Dennis/Documents/GitHub/Gruppuppgift/src/main/skane.JPG", 
+		String path = new File("src/main/skane.JPG").getAbsolutePath();
+
+		mapView = new MapView(path, 
 				mapLeftUp.getLongitude(),
 				mapLeftUp.getLatitude(),
 				mapRightDown.getLongitude(),
 				mapRightDown.getLatitude());
 		//Nedanstående endast för testning under programmets uppbyggnad.
+		//ui = new UI(this, mapView);
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(mapView);
+		//frame.add(ui);
 		frame.pack();
 		frame.setVisible(true);
 		//Här slutar testet.
@@ -42,7 +48,9 @@ public class GUController {
 	}
 	
 	private void openFiles() throws IOException {
-		FileReader fr = new FileReader("C:/Users/Dennis/Documents/GitHub/Gruppuppgift/src/main/places.txt");
+		String path1 = new File("src/main/places.txt").getAbsolutePath();
+		String path2 = new File("src/main/roads.txt").getAbsolutePath();
+		FileReader fr = new FileReader(path1);
 		BufferedReader reader = new BufferedReader(fr);
 		String readLine;
 		while((readLine = reader.readLine()) != null) {
@@ -58,7 +66,7 @@ public class GUController {
 			}
 		}
 		
-		fr = new FileReader("C:/Users/Dennis/Documents/GitHub/Gruppuppgift/src/main/roads.txt");
+		fr = new FileReader(path2);
 		reader = new BufferedReader(fr);
 		
 		while((readLine = reader.readLine()) != null) {
@@ -80,7 +88,7 @@ public class GUController {
 		System.out.println(roads.get(3));
 		System.out.println(places.get(7));
 		System.out.println(placeMap.get("Ängelholm"));
-		ArrayList<Edge<Place>> tempArr = GraphSearch.dijkstraSearch(graph, placeMap.get("Höganäs"), placeMap.get("Ystad"));
+		ArrayList<Edge<Place>> tempArr = GraphSearch.dijkstraSearch(graph, placeMap.get("Helsingborg"), placeMap.get("Åhus"));
 		int sumWeight = 0;
 		for(Edge<Place> road : tempArr) {
 			System.out.println(road);
@@ -88,6 +96,7 @@ public class GUController {
 		}
 		System.out.println("Total sträcka: " + sumWeight);
 		mapView.showRoads(edgesToRoads(tempArr));
+		//ui.addPlacesToList(places);
 		//Här slutar testet.
 		
 	}

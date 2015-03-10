@@ -26,11 +26,13 @@ public class GUController {
 				mapLeftUp.getLatitude(),
 				mapRightDown.getLongitude(),
 				mapRightDown.getLatitude());
+		//Nedanstående endast för testning under programmets uppbyggnad.
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(mapView);
 		frame.pack();
 		frame.setVisible(true);
+		//Här slutar testet.
 		try{
 			openFiles();
 		} catch(IOException e) {
@@ -105,8 +107,8 @@ public class GUController {
 	}
 	
 	/**
-	 * Konverterar en ArrayList innehållande Edge-object till en ArrayList
-	 * innehållande Road-objekt. Metoden använder sig av en hashmap för att
+	 * Tar en ArrayList innehållande Edge-object och returnerar en ArrayList
+	 * innehållande motsvarande Road-objekt. Metoden använder sig av en hashmap för att
 	 * koppla Edge-objekt till existerande Road-objekt.
 	 * @param inList ArrayList med Edges
 	 * @return tempRoads ArrayList med Road-objekt

@@ -47,6 +47,10 @@ public class GUController {
 		
 	}
 	
+	/**
+	 * Metoden öppnar filerna och läser in dem till motsvarande ArrayList. samt HashMap.
+	 * @throws IOException
+	 */
 	private void openFiles() throws IOException {
 		String path1 = new File("src/main/places.txt").getAbsolutePath();
 		String path2 = new File("src/main/roads.txt").getAbsolutePath();
@@ -88,7 +92,7 @@ public class GUController {
 		System.out.println(roads.get(3));
 		System.out.println(places.get(7));
 		System.out.println(placeMap.get("Ängelholm"));
-		ArrayList<Edge<Place>> tempArr = GraphSearch.dijkstraSearch(graph, placeMap.get("Helsingborg"), placeMap.get("Åhus"));
+		ArrayList<Edge<Place>> tempArr = GraphSearch.dijkstraSearch(graph, placeMap.get("Hässleholm"), placeMap.get("Åhus"));
 		int sumWeight = 0;
 		for(Edge<Place> road : tempArr) {
 			System.out.println(road);
@@ -125,7 +129,6 @@ public class GUController {
 	private ArrayList<Road> edgesToRoads(ArrayList<Edge<Place>> inList) {
 		ArrayList<Road> tempRoads = new ArrayList<Road>();
 		for(Edge<Place> road : inList) {
-			System.out.println(road);
 			tempRoads.add(roadMap.get(road.getFrom().getName() + road.getTo().getName()));
 		}
 		return tempRoads;

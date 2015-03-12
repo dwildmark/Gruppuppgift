@@ -1,10 +1,12 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class BST {
 	private Node tree;
-	
+	private Comparator comparator;
+
 	/**
 	 * Metoden ska lägga till nya platser tills det inte finns fler platser att 
 	 * lägga till. 
@@ -16,10 +18,72 @@ public class BST {
 
 	public BST(ArrayList<Place> places){
 		for(int i = 0; i < places.size(); i++){
-			
+
 
 		}
 	}
+
+	public void put(Place place, String key){
+		tree = put(tree,key,place);       
+	}
+
+	private Node put(Node node, String key, Place place) {
+		if( node == null ) {
+			node = new Node( key, place, null, null );
+		} else {
+			if(comparator.compare (key, node. key) < 0) {
+				node.left = put(node.left, key, place);
+			} else if(comparator.compare (key, node. key) > 0) {
+				node.right = put(node.right, key, place);
+			}
+		}
+		return node;
+	}
+
+	public Place remove(String key) {
+		Place place = get( key );
+		if(place!=null) {
+			tree = remove(tree,key);
+		}
+		return place;
+	}
+
+	private Node remove(Node node, String key) {
+		int compare = comparator.compare(key, node.key);
+		if(compare==0) {
+			if(node.left==null && node.right==null)
+				node = null;
+			else if(node.left!=null && node.right==null)
+				node = node.left;
+			else if(node.left==null && node.right!=null)
+				node = node.right;
+			else {
+				Node min = getMin(node.right);
+				min.right = remove(node.right,min.key);
+				min.left = node.left;
+				node = min;
+			}
+		} else if(compare<0) {
+			node.left = remove(node.left,key);
+		} else {
+			node.right = remove(node.right,key);
+		}
+		return node;
+	}
+
+	private Node getMin(Node node) {
+		while(node.left!=null)
+			node = node.left;
+		return node;
+	}
+
+	private class Comp  {
+		public int compare( String key1, String key2 ) {
+			Comparable k1 = ( Comparable )key1;
+			return k1.compareTo( key2 );
+		}
+	}
+
 
 	public Place get(String key) {
 		Node node = find( key );
@@ -34,35 +98,29 @@ public class BST {
 	 * @param key staden vi söker efter
 	 * @return funnen stad.
 	 */
-	private Node find(String key) {
-		int res;
-		Node node = tree;
-		while( ( node != null ) && ( ( res = tree.key.compareTo( key ) ) != 0 ) ) {
-			if( res > 0 )
-				node = node.left;
-			else
-				node = node.right;
-		}
-		return node;
-	}
+	 private Node find(String key) {
+		 int res;
+		 Node node = tree;
+		 while( ( node != null ) && ( ( res = tree.key.compareTo( key ) ) != 0 ) ) {
+			 if( res > 0 )
+				 node = node.left;
+			 else
+				 node = node.right;
+		 }
+		 return node;
+	 }
 
-	private class Node {
-		private String key;
-		private Place value;
-		private Node left;
-		private Node right;
+	 private class Node {
+		 public String key;
+		 public Place value;
+		 public Node left;
+		 public Node right;
 
-		public Node (String key, Place value, Node left, Node right){
-			this.key = key;
-			this.value = value;
-			this.left = left;
-			this.right = right;
-		}
-
-		public int compareTo(Node nodeNew){
-			return key.compareTo(nodeNew.key);
-		}
-
-	}
-
+		 public Node (String key, Place value, Node left, Node right){
+			 this.key = key;
+			 this.value = value;
+			 this.left = left;
+			 this.right = right;
+		 }
+	 }
 }

@@ -6,14 +6,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.*;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTabbedPane;
 
 public class UI extends JPanel {
 	private GUController controller;
@@ -22,13 +16,17 @@ public class UI extends JPanel {
 	private JPanel route = new JPanel (new GridLayout (3,1));
 	private JPanel Sbuttons = new JPanel (new GridLayout (4,1));
 	private JPanel allbuttons =  new JPanel (new BorderLayout());
+	private JPanel mapPanel = new JPanel();
+	private JPanel textPanel = new JPanel();
+	private JLabel mapLabel = new JLabel("Karta");
+	private JLabel textLabel = new JLabel ("Text");
 //	private JPanel alternativ = new JPanel(), text = new JPanel(), inputPnl = new JPanel();
 	private JLabel sOptions = new JLabel ("Sökalternativ");
-	private JPanel tabs = new JPanel(new GridLayout(0,2));
+//	private JPanel tabs = new JPanel(new GridLayout(0,2));
 	private JComboBox<Place> dropDownList = new JComboBox<Place>();
 	private JComboBox <Place> dropDownList2 = new JComboBox<Place>();
 	private JTabbedPane alternativ = new JTabbedPane();
-
+	private JTextField mapInfo = new JTextField ();
 	private JRadioButton dijkstra = new JRadioButton ("Dijkstra");
 	private JRadioButton depth = new JRadioButton ("Sök på djupet");
 	private JRadioButton width = new JRadioButton ("Sök på bredden");
@@ -38,16 +36,19 @@ public class UI extends JPanel {
 	public UI(GUController controller, MapView mapView) {
 		this.controller = controller;
 		this.mapView = mapView;
+		mapPanel.add(mapLabel);
+		textPanel.add(textLabel);
 
 
 
+
 		
 		
-//		alternativ.addTab("Karta", mapView);
-//		alternativ.addTab("Text", mapView);
+		alternativ.addTab("Karta", mapPanel);
+		alternativ.addTab("Text",mapInfo );
 		
 		
-//		alternativ.setPreferredSize( new Dimension(40,20));
+		alternativ.setPreferredSize( new Dimension(40,30));
 		
 		
 		
@@ -58,7 +59,7 @@ public class UI extends JPanel {
 		btngrp1.add(width);
 		btngrp1.add(dijkstra);
 		
-		route.setPreferredSize( new Dimension (500,100));
+		route.setPreferredSize( new Dimension (550,100));
 		route.add(dropDownList);
 		route.add(dropDownList2);
 		route.add(search);
@@ -68,13 +69,14 @@ public class UI extends JPanel {
 		Sbuttons.add(depth);
 		Sbuttons.add(width);
 
-//		Backgrnd.add(alternativ, BorderLayout.NORTH);
+		Backgrnd.add(alternativ, BorderLayout.NORTH);
 		Backgrnd.add(mapView, BorderLayout.CENTER);
 		Backgrnd.add(allbuttons, BorderLayout.SOUTH);
 		
 		allbuttons.add(route, BorderLayout.WEST);
 		allbuttons.add(Sbuttons, BorderLayout.EAST);
 		
+//		this.add(alternativ);
 		this.add(Backgrnd);
 //		this.add(mapView);
 //		this.add(route);

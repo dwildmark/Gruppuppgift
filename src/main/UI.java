@@ -25,8 +25,8 @@ public class UI extends JPanel {
 //	private JPanel alternativ = new JPanel(), text = new JPanel(), inputPnl = new JPanel();
 	private JLabel sOptions = new JLabel ("Sökalternativ");
 	private JPanel tabs = new JPanel(new GridLayout(0,2));
-	private JComboBox<Place> dropDownList;
-	private JComboBox <Place> dropDownList2;
+	private JComboBox<Place> dropDownList = new JComboBox<Place>();
+	private JComboBox <Place> dropDownList2 = new JComboBox<Place>();
 	private JTabbedPane alternativ = new JTabbedPane();
 
 	private JRadioButton dijkstra = new JRadioButton ("Dijkstra");

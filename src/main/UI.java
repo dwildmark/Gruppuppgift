@@ -21,10 +21,10 @@ public class UI extends JPanel {
 	private JPanel route = new JPanel (new GridLayout ());
 	private JPanel Sbuttons = new JPanel (new GridLayout (3,1));
 	private JPanel allbuttons =  new JPanel (new GridLayout (3,2));
-	private JPanel karta, text, inputPnl;
+	private JPanel karta = new JPanel(), text = new JPanel(), inputPnl = new JPanel();
 	private JComboBox<Place> dropDownList;
 	private JComboBox <Place> dropDownList2;
-	private JTabbedPane tabpane;
+	private JTabbedPane tabpane = new JTabbedPane();
 	private JRadioButton dijkstra = new JRadioButton ("Dijkstra");
 	private JRadioButton depth = new JRadioButton ("Sök på djupet");
 	private JRadioButton width = new JRadioButton ("Sök på bredden");
@@ -88,16 +88,16 @@ public class UI extends JPanel {
 
 
 			if (e.getSource()==depth){
-				GraphSearch GS = new GraphSearch();
-				GS.depthFirstSearch(graph, from, to)
+				//GraphSearch GS = new GraphSearch();
+				//GS.depthFirstSearch(graph, from, to)
 			}
 			if (e.getSource()==width){
-				GraphSearch GS = new GraphSearch();
-				GS.breadthFirstSearch(graph, from, to)
+				//GraphSearch GS = new GraphSearch();
+				//GS.breadthFirstSearch(graph, from, to)
 			}
 			if(e.getSource()==dijkstra){
-				GraphSearch GS = new GraphSearch();
-				GS.dijkstraSearch(graph, from, to)
+				//GraphSearch GS = new GraphSearch();
+				//GS.dijkstraSearch(graph, from, to)
 			}
 			if(e.getSource()==dropDownList){
 					

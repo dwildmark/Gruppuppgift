@@ -31,11 +31,10 @@ public class GUController {
 				mapRightDown.getLongitude(),
 				mapRightDown.getLatitude());
 		//Nedanstående endast för testning under programmets uppbyggnad.
-		//ui = new UI(this, mapView);
+		ui = new UI(this, mapView);
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(mapView);
-		//frame.add(ui);
+		frame.add(ui);
 		frame.pack();
 		frame.setVisible(true);
 		//Här slutar testet.

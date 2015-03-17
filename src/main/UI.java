@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +20,7 @@ public class UI extends JPanel {
 	private JPanel Backgrnd = new JPanel (new BorderLayout());
 	private JPanel route = new JPanel (new GridLayout ());
 	private JPanel Sbuttons = new JPanel (new GridLayout (3,1));
-	private JPane allbuttons =  new JPanel (new )
+	private JPanel allbuttons =  new JPanel (new GridLayout (3,2));
 	private JPanel karta, text, inputPnl;
 	private JComboBox<Place> dropDownList;
 	private JComboBox <Place> dropDownList2;
@@ -27,7 +28,8 @@ public class UI extends JPanel {
 	private JRadioButton dijkstra = new JRadioButton ("Dijkstra");
 	private JRadioButton depth = new JRadioButton ("Sök på djupet");
 	private JRadioButton width = new JRadioButton ("Sök på bredden");
-	private JRadioButton search2 = new JButton ("Sök");
+	private JButton search = new JButton ("Sök");
+	
 
 	public UI(GUController controller, MapView mapView) {
 		this.controller = controller;
@@ -86,16 +88,19 @@ public class UI extends JPanel {
 
 
 			if (e.getSource()==depth){
-
+				GraphSearch GS = new GraphSearch();
+				GS.depthFirstSearch(graph, from, to)
 			}
 			if (e.getSource()==width){
-
+				GraphSearch GS = new GraphSearch();
+				GS.breadthFirstSearch(graph, from, to)
 			}
 			if(e.getSource()==dijkstra){
-
+				GraphSearch GS = new GraphSearch();
+				GS.dijkstraSearch(graph, from, to)
 			}
 			if(e.getSource()==dropDownList){
-
+					
 			}
 			if(e.getSource()==dropDownList2){
 

@@ -3,6 +3,8 @@ package main;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import javax.swing.JOptionPane;
+
 public class BST {
 	private Node tree;
 	private Comparator comparator;
@@ -18,23 +20,31 @@ public class BST {
 
 	public BST(ArrayList<Place> places){
 		for(int i = 0; i < places.size(); i++){
+			Place temp = places.get(i);
+				put(temp, temp.getName());
+			}
 
 
 		}
-	}
+	
 
 	public void put(Place place, String key){
-		tree = put(tree,key,place);       
+		tree = put(tree, key, place);       
 	}
 
 	private Node put(Node node, String key, Place place) {
 		if( node == null ) {
 			node = new Node( key, place, null, null );
 		} else {
-			if(comparator.compare (key, node. key) < 0) {
+			if(comparator.compare (key, node.key) < 0) {
 				node.left = put(node.left, key, place);
-			} else if(comparator.compare (key, node. key) > 0) {
+			} else if(comparator.compare (key, node.key) > 0) {
 				node.right = put(node.right, key, place);
+			}else{
+				JOptionPane.showMessageDialog(null, "Objektet finns redan i listan!", "Put Error", JOptionPane.ERROR_MESSAGE);
+				System.out.println("Objektet finns redan i listan!");
+				return null;
+				
 			}
 		}
 		return node;
@@ -123,4 +133,8 @@ public class BST {
 			 this.right = right;
 		 }
 	 }
+	 public static void main(String[] args) {
+		 
+		
+	}
 }

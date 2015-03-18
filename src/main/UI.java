@@ -40,6 +40,7 @@ public class UI extends JPanel {
 		btngrp1.add(depth);
 		btngrp1.add(breadth);
 		btngrp1.add(dijkstra);
+		dijkstra.setSelected(true);
 		
 		route.setPreferredSize( new Dimension (550,100));
 		route.add(dropDownList);

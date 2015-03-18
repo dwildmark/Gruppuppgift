@@ -65,6 +65,14 @@ public class UI extends JPanel {
 		dropDownList2.addActionListener(btn);
 		search.addActionListener(btn);
 	}
+	
+	public void addPlacesToList(ArrayList<Place> inList) {
+		for( Place place : inList) {
+			dropDownList.addItem(place);
+			dropDownList2.addItem(place);
+		}
+	}
+	
 	private class Buttons implements ActionListener{
 
 		public void actionPerformed(ActionEvent e){
@@ -77,14 +85,6 @@ public class UI extends JPanel {
 					controller.searchBreadth((Place)dropDownList.getSelectedItem(), (Place)dropDownList2.getSelectedItem());
 				}
 			}
-		}
-	}
-
-
-	public void addPlacesToList(ArrayList<Place> inList) {
-		for( Place place : inList) {
-			dropDownList.addItem(place);
-			dropDownList2.addItem(place);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -24,7 +26,6 @@ public class GUController {
 	public GUController(String string, Position mapLeftUp,
 			Position mapRightDown, String string2, String string3) {
 		String path = new File("src/main/skane.JPG").getAbsolutePath();
-
 		mapView = new MapView(path, 
 				mapLeftUp.getLongitude(),
 				mapLeftUp.getLatitude(),
@@ -87,10 +88,11 @@ public class GUController {
 			roadMap.put(temp.getFrom() + temp.getTo(),temp);
 		}
 		buildGraph();
+		
+		ui.addPlacesToList(places);
+
+		
 		//Nedanstående block är enbart för test av funktioner.
-		System.out.println(roads.get(3));
-		System.out.println(places.get(7));
-		System.out.println(placeMap.get("Ängelholm"));
 		ArrayList<Edge<Place>> tempArr = GraphSearch.dijkstraSearch(graph, placeMap.get("Hässleholm"), placeMap.get("Åhus"));
 		int sumWeight = 0;
 		for(Edge<Place> road : tempArr) {
@@ -98,8 +100,6 @@ public class GUController {
 			sumWeight += road.getWeight();
 		}
 		System.out.println("Total sträcka: " + sumWeight);
-		mapView.showRoads(edgesToRoads(tempArr));
-		ui.addPlacesToList(places);
 		//Här slutar testet.
 		
 	}

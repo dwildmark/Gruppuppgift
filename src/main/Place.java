@@ -26,6 +26,10 @@ public class Place {
         return position;
     }
     
+    public int getPopulation() {
+    	return population;
+    }
+    
     public String toString() {
     	return name;
         //return "Name: " +name+ " Position: " +position+ " Area (ha): " +area+ " Invånare: " +population;

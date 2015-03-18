@@ -25,6 +25,7 @@ public class BST {
 	 */
 
 	public BST(ArrayList<Place> places){
+		comparator = new Comp();
 		for(int i = 0; i < places.size(); i++){
 			Place temp = places.get(i);
 			put(temp, temp.getName());
@@ -134,8 +135,8 @@ public class BST {
 	 * med två olika keys.
 	 *
 	 */
-	private class Comp  {
-		public int compare( String key1, String key2 ) {
+	private class Comp implements Comparator {
+		public int compare( Object key1, Object key2 ) {
 			Comparable k1 = ( Comparable )key1;
 			return k1.compareTo( key2 );
 		}

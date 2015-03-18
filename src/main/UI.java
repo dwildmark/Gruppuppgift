@@ -6,7 +6,14 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.*;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTabbedPane;
 
 
 public class UI extends JPanel {
@@ -15,13 +22,11 @@ public class UI extends JPanel {
 	private JPanel route = new JPanel (new GridLayout (3,1));
 	private JPanel sButtons = new JPanel (new GridLayout (4,1));
 	private JPanel allbuttons =  new JPanel (new BorderLayout());
-	private JPanel textPanel = new JPanel();
-	private JLabel textLabel = new JLabel ("Text");
 	private JLabel sOptions = new JLabel ("Sökalternativ");
 	private JComboBox<Place> dropDownList = new JComboBox<Place>();
 	private JComboBox <Place> dropDownList2 = new JComboBox<Place>();
 	private JTabbedPane alternativ = new JTabbedPane();
-	private JTextField mapInfo = new JTextField ();
+	private JPanel mapInfo = new JPanel( new GridLayout(15,1));
 	private JRadioButton dijkstra = new JRadioButton ("Dijkstra");
 	private JRadioButton depth = new JRadioButton ("Sök på djupet");
 	private JRadioButton breadth = new JRadioButton ("Sök på bredden");
@@ -30,7 +35,6 @@ public class UI extends JPanel {
 
 	public UI(GUController controller, MapView mapView) {
 		this.controller = controller;
-		textPanel.add(textLabel);
 		setLayout(new BorderLayout());
 		
 		alternativ.addTab("Karta", mapView);
@@ -65,6 +69,13 @@ public class UI extends JPanel {
 		dropDownList.addActionListener( btn);
 		dropDownList2.addActionListener(btn);
 		search.addActionListener(btn);
+	}
+	
+	public void addLabels(ArrayList<JLabel> labels) {
+		mapInfo.removeAll();
+		for(JLabel label : labels) {
+			mapInfo.add(label);
+		}
 	}
 	
 	public void addPlacesToList(ArrayList<Place> inList) {

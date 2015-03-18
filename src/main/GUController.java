@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -9,8 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class GUController {
@@ -21,6 +20,7 @@ public class GUController {
 	private HashMap<String, Road> roadMap = new HashMap<String, Road>();
 	private MapView mapView;
 	private UI ui;
+	private BST bst;
 	
 
 	public GUController(String string, Position mapLeftUp,
@@ -87,19 +87,15 @@ public class GUController {
 			roads.add(temp);
 			roadMap.put(temp.getFrom() + temp.getTo(),temp);
 		}
+		
 		buildGraph();
 		
 		ui.addPlacesToList(places);
 
+		bst = new BST(places);
 		
 		//Nedanstående block är enbart för test av funktioner.
-		ArrayList<Edge<Place>> tempArr = GraphSearch.dijkstraSearch(graph, placeMap.get("Hässleholm"), placeMap.get("Åhus"));
-		int sumWeight = 0;
-		for(Edge<Place> road : tempArr) {
-			System.out.println(road);
-			sumWeight += road.getWeight();
-		}
-		System.out.println("Total sträcka: " + sumWeight);
+		
 		//Här slutar testet.
 		
 	}
@@ -107,19 +103,42 @@ public class GUController {
 	public void searchDijkstra(Place from, Place to) {
 		ArrayList<Edge<Place>> temp = GraphSearch.dijkstraSearch(graph, from, to);
 		mapView.showRoads(edgesToRoads(temp));
-		
+		updateText(edgesToRoads(temp), from, to);
 	}
 	
 	public void searchDepth(Place from, Place to) {
 		ArrayList<Edge<Place>> temp = GraphSearch.depthFirstSearch(graph, from, to);
 		mapView.showRoads(edgesToRoads(temp));
-
+		updateText(edgesToRoads(temp), from, to);
 	}
 	
 	public void searchBreadth(Place from, Place to) {
 		ArrayList<Edge<Place>> temp = GraphSearch.breadthFirstSearch(graph, from, to);
 		mapView.showRoads(edgesToRoads(temp));
-
+		updateText(edgesToRoads(temp), from, to);
+	}
+	
+	private void updateText(ArrayList<Road> roads, Place from, Place to) {
+		ArrayList<JLabel> list = new ArrayList<JLabel>();
+		list.add(new JLabel("Från:"));
+		list.add(new JLabel("Stad: " + from.getName()
+				+ "\tArea: " + from.getArea()
+				+ "\tInvånare: " + from.getPopulation()));
+		list.add(new JLabel("Till:"));
+		list.add(new JLabel("Stad: " + from.getName() 
+				+ "\tArea: " + from.getArea()
+				+ "\tInvånare: " + from.getPopulation()));
+		list.add(new JLabel(""));
+		list.add(new JLabel(""));
+		list.add(new JLabel(""));
+		
+		int totalLength = 0;
+		for(Road road : roads) {
+			list.add(new JLabel(road.toString()));
+			totalLength += road.getCost();
+		}
+		list.add(new JLabel("Total sträcka: " + totalLength));
+		ui.addLabels(list);
 	}
 	
 	/**

@@ -126,6 +126,22 @@ public class BST {
 		return node;
 	}
 	/**
+	 * Innre klassen comp används för att
+	 * gämföra två olika städers namn för att sortera i lista
+	 * eller när man vill ta bort ur listen eller när
+	 * man vill lägga till i listan. Denna klassen anropas 
+	 * då från metoderna nämda ovan, och returnerar en gämförelse
+	 * med två olika keys.
+	 *
+	 */
+	private class Comp  {
+		public int compare( String key1, String key2 ) {
+			Comparable k1 = ( Comparable )key1;
+			return k1.compareTo( key2 );
+		}
+	}
+
+	/**
 	 * Metoden används för att leta efter en key i listan
 	 * detta görs genom att kolla om node(key) inte är tom, 
 	 * är det så kommer värdet för node returneras annars kommer null returneras

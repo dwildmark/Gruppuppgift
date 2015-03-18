@@ -99,9 +99,27 @@ public class GUController {
 		}
 		System.out.println("Total sträcka: " + sumWeight);
 		mapView.showRoads(edgesToRoads(tempArr));
-		//ui.addPlacesToList(places);
+		ui.addPlacesToList(places);
 		//Här slutar testet.
 		
+	}
+	
+	public void searchDijkstra(Place from, Place to) {
+		ArrayList<Edge<Place>> temp = GraphSearch.dijkstraSearch(graph, from, to);
+		mapView.showRoads(edgesToRoads(temp));
+		
+	}
+	
+	public void searchDepth(Place from, Place to) {
+		ArrayList<Edge<Place>> temp = GraphSearch.depthFirstSearch(graph, from, to);
+		mapView.showRoads(edgesToRoads(temp));
+
+	}
+	
+	public void searchBreadth(Place from, Place to) {
+		ArrayList<Edge<Place>> temp = GraphSearch.breadthFirstSearch(graph, from, to);
+		mapView.showRoads(edgesToRoads(temp));
+
 	}
 	
 	/**

@@ -166,7 +166,7 @@ public class BST {
 	private Node find(String key) {
 		int res;
 		Node node = tree;
-		while( ( node != null ) && ( ( res = tree.key.compareTo( key ) ) != 0 ) ) {
+		while( ( node != null ) && ( ( res = node.key.compareTo( key ) ) != 0 ) ) {
 			if( res > 0 )
 				node = node.left;
 			else

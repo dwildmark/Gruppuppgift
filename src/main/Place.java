@@ -32,6 +32,6 @@ public class Place {
     
     public String toString() {
     	return name;
-        //return "Name: " +name+ " Position: " +position+ " Area (ha): " +area+ " Invånare: " +population;
+//        return "Name: " +name+ " Position: " +position+ " Area (ha): " +area+ " Invånare: " +population;
     }
 }

@@ -94,9 +94,26 @@ public class GUController {
 
 		bst = new BST(places);
 		
+		/**
+		 * Testet nedan gör att användaren får ut
+		 * information om en stad, genom att skicka 
+		 * in en "key" stadens namn som input.
+		 */
 		//Nedanstående block är enbart för test av funktioner.
-		String city = JOptionPane.showInputDialog("Hämta en stad med dess key: ");
-		JOptionPane.showMessageDialog(null, "Detta är staden: "+ bst.get(city));
+		String cityTest1 = JOptionPane.showInputDialog("Hämta en stad med dess key: ");
+		Place temp = bst.get(cityTest1);
+		JOptionPane.showMessageDialog(null, "Detta är staden: "+ temp.getName() + " Invånare: " + temp.getPopulation() +
+				" Area: " + temp.getArea() + " Position: " + temp.getPosition());
+		/**
+		 * Testet nedan låter användaren skicka in
+		 * en key med stadens namn, då kommer användaren
+		 * ta bort denna staden, utskriften kommer 
+		 * bli en tom messageDialog-ruta.
+		 */
+		String cityTest2 = JOptionPane.showInputDialog("Obs!, Staden försvinner! \nTa bort en stad med dess key:  ");
+		Place temp2 = bst.remove(cityTest2);
+		JOptionPane.showMessageDialog(null, bst.get(temp2.getName()));
+		
 		//Här slutar testet.
 		
 	}

@@ -95,7 +95,8 @@ public class GUController {
 		bst = new BST(places);
 		
 		//Nedanstående block är enbart för test av funktioner.
-		
+		String city = JOptionPane.showInputDialog("Hämta en stad med dess key: ");
+		JOptionPane.showMessageDialog(null, "Detta är staden: "+ bst.get(city));
 		//Här slutar testet.
 		
 	}

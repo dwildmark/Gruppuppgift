@@ -35,7 +35,7 @@ public class GUController {
 				mapLeftUp.getLatitude(),
 				mapRightDown.getLongitude(),
 				mapRightDown.getLatitude());
-		//Nedanstående endast för testning under programmets uppbyggnad.
+		
 		ui = new UI(this, mapView);
 		JFrame frame = new JFrame();
 		frame.setIconImage(icon.getImage());
@@ -43,17 +43,18 @@ public class GUController {
 		frame.add(ui);
 		frame.pack();
 		frame.setVisible(true);
-		//Här slutar testet.
 		try{
 			openFiles();
 		} catch(IOException e) {
-			JOptionPane.showMessageDialog(null, "Oops, fel när filerna öppnades.");
+			JOptionPane.showMessageDialog(ui, "Oops, fel när filerna öppnades.");
 		}
 		
 	}
 	
 	/**
-	 * Metoden öppnar filerna och läser in dem till motsvarande ArrayList. samt HashMap.
+	 * Metoden öppnar filerna och läser in dem till 
+	 * motsvarande ArrayList och HashMap. Slutligen byggs 
+	 * ett binärt sökträd.
 	 * @throws IOException
 	 */
 	private void openFiles() throws IOException {
@@ -62,6 +63,7 @@ public class GUController {
 		FileReader fr = new FileReader(path1);
 		BufferedReader reader = new BufferedReader(fr);
 		String readLine;
+		//Här läses places.txt in och ett Place-objekt skapas för varje stad.
 		while((readLine = reader.readLine()) != null) {
 			if(readLine.charAt(1) != '/') {
 				String[] contents = readLine.split(" ");
@@ -78,6 +80,7 @@ public class GUController {
 		fr = new FileReader(path2);
 		reader = new BufferedReader(fr);
 		
+		//Här läses roads.txt in och ett Road-objekt skapas för varje väg.
 		while((readLine = reader.readLine()) != null) {
 			
 			ArrayList<Position> positions = new ArrayList<Position>();
@@ -99,30 +102,17 @@ public class GUController {
 
 		bst = new BST(places);
 		
-		/**
-		 * Testet nedan gör att användaren får ut
-		 * information om en stad, genom att skicka 
-		 * in en "key" stadens namn som input.
-		 */
-		//Nedanstående block är enbart för test av funktioner.
-		String cityTest1 = JOptionPane.showInputDialog("Hämta en stad med dess key: ");
-		Place temp = bst.get(cityTest1);
-		JOptionPane.showMessageDialog(null, "Detta är staden: "+ temp.getName() + " Invånare: " + temp.getPopulation() +
-				" Area: " + temp.getArea() + " Position: " + temp.getPosition());
-		/**
-		 * Testet nedan låter användaren skicka in
-		 * en key med stadens namn, då kommer användaren
-		 * ta bort denna staden, utskriften kommer 
-		 * bli en tom messageDialog-ruta.
-		 */
-		String cityTest2 = JOptionPane.showInputDialog("Obs!, Staden försvinner! \nTa bort en stad med dess key:  ");
-		Place temp2 = bst.remove(cityTest2);
-		JOptionPane.showMessageDialog(null, bst.get(temp2.getName()));
-		
-		//Här slutar testet.
-		
 	}
 	
+	/**
+	 * Ndeanstående metoder utför sökning och visning av resultat.
+	 * UI-klassen skickar med Place-objekt. Med hjälp av dessa beräknas väg
+	 * på olika sätt beroende på vilken sökmetod som används.
+	 * Väginformation skrivs ut till kartan via mapView.showRoads() och till 
+	 * textfönstret med hjälp av updateText.
+	 * @param from Place-objekt med utgångsposition.
+	 * @param to Place-objekt med destination.
+	 */
 	public void searchDijkstra(Place from, Place to) {
 		ArrayList<Edge<Place>> temp = GraphSearch.dijkstraSearch(graph, from, to);
 		mapView.showRoads(edgesToRoads(temp));
@@ -141,16 +131,51 @@ public class GUController {
 		updateText(edgesToRoads(temp), from, to);
 	}
 	
+	/**
+	 * Testet nedan gör att användaren får ut
+	 * information om en stad, genom att skicka 
+	 * in en "key" stadens namn som input.
+	 * Sedan får användaren skicka in
+	 * en key med stadens namn, då kommer användaren
+	 * ta bort denna staden, utskriften kommer 
+	 * bli en tom messageDialog-ruta.
+	 */
+	public void testBST() {
+		try {
+		String cityTest1 = JOptionPane.showInputDialog("Hämta en stad med dess key: ");
+		Place temp = bst.get(cityTest1);
+		JOptionPane.showMessageDialog(null, "Detta är staden: "+ temp.getName() 
+				+ " Invånare: " + temp.getPopulation() +
+				" Area: " + temp.getArea() + " Position: " 
+				+ temp.getPosition());
+		String cityTest2 = JOptionPane
+				.showInputDialog("Obs!, Staden försvinner! \nTa bort en stad med dess key:  ");
+		Place temp2 = bst.remove(cityTest2);
+		JOptionPane.showMessageDialog(null, bst.get(temp2.getName()));
+		} catch(NullPointerException e) {
+			JOptionPane.showMessageDialog(ui, "Antingen finns inte staden du angav"
+					+ ", eller så tryckte du cancel. Mest så du vet.");
+		}
+	}
+	
+	/**
+	 * Metoden uppdaterar informationen i textrutan.
+	 * Den visar information om de båda städerna,
+	 * samt vilka vägar man ska ta och den totala sträckan.
+	 * @param roads lista med vägarna
+	 * @param from Place-objekt med utgångsposition.
+	 * @param to Place-objekt med destination.
+	 */
 	private void updateText(ArrayList<Road> roads, Place from, Place to) {
 		ArrayList<JLabel> list = new ArrayList<JLabel>();
 		list.add(new JLabel("Från:"));
 		list.add(new JLabel("Stad: " + from.getName()
-				+ "\tArea: " + from.getArea()
-				+ "\tInvånare: " + from.getPopulation()));
+				+ "   Area: " + from.getArea()
+				+ "   Invånare: " + from.getPopulation()));
 		list.add(new JLabel("Till:"));
 		list.add(new JLabel("Stad: " + to.getName() 
-				+ "\tArea: " + to.getArea()
-				+ "\tInvånare: " + to.getPopulation()));
+				+ "   Area: " + to.getArea()
+				+ "   Invånare: " + to.getPopulation()));
 		list.add(new JLabel(""));
 		list.add(new JLabel(""));
 		list.add(new JLabel(""));
@@ -166,6 +191,7 @@ public class GUController {
 	
 	/**
 	 * Bygger en graf med Place som vertex och Road som edges.
+	 * Metoden utnyttjar en hashmap för att koppla Edges till Vertex.
 	 */
 	private void buildGraph() {
 		for (Place place : places) {

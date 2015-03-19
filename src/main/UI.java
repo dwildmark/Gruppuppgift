@@ -22,6 +22,7 @@ public class UI extends JPanel {
 	private JPanel route = new JPanel (new GridLayout (3,1));
 	private JPanel sButtons = new JPanel (new GridLayout (4,1));
 	private JPanel allbuttons =  new JPanel (new BorderLayout());
+	private JPanel testBST = new JPanel();
 	private JLabel sOptions = new JLabel ("Sökalternativ");
 	private JComboBox<Place> dropDownList = new JComboBox<Place>();
 	private JComboBox <Place> dropDownList2 = new JComboBox<Place>();
@@ -31,14 +32,18 @@ public class UI extends JPanel {
 	private JRadioButton depth = new JRadioButton ("Sök på djupet");
 	private JRadioButton breadth = new JRadioButton ("Sök på bredden");
 	private JButton search = new JButton ("Sök");
+	private JButton startTest = new JButton("Starta test");
 	
 
 	public UI(GUController controller, MapView mapView) {
 		this.controller = controller;
 		setLayout(new BorderLayout());
 		
+		testBST.add(startTest);
+		
 		alternativ.addTab("Karta", mapView);
-		alternativ.addTab("Text", mapInfo );	
+		alternativ.addTab("Text", mapInfo );
+		alternativ.addTab("BST-test", testBST);
 		
 		ButtonGroup btngrp1 = new ButtonGroup ();
 		btngrp1.add(depth);
@@ -69,6 +74,7 @@ public class UI extends JPanel {
 		dropDownList.addActionListener( btn);
 		dropDownList2.addActionListener(btn);
 		search.addActionListener(btn);
+		startTest.addActionListener(btn);
 	}
 	
 	public void addLabels(ArrayList<JLabel> labels) {
@@ -96,6 +102,8 @@ public class UI extends JPanel {
 				} else if( breadth.isSelected()){
 					controller.searchBreadth((Place)dropDownList.getSelectedItem(), (Place)dropDownList2.getSelectedItem());
 				}
+			} else if(e.getSource() == startTest) {
+				controller.testBST();
 			}
 		}
 	}

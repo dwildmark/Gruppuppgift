@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,6 +27,9 @@ public class GUController {
 	public GUController(String string, Position mapLeftUp,
 			Position mapRightDown, String string2, String string3) {
 		String path = new File("src/main/skane.JPG").getAbsolutePath();
+		String pathIcon = new File("src/main/skanevapen.gif").getAbsolutePath();
+		ImageIcon icon = new ImageIcon(pathIcon);
+
 		mapView = new MapView(path, 
 				mapLeftUp.getLongitude(),
 				mapLeftUp.getLatitude(),
@@ -34,6 +38,7 @@ public class GUController {
 		//Nedanstående endast för testning under programmets uppbyggnad.
 		ui = new UI(this, mapView);
 		JFrame frame = new JFrame();
+		frame.setIconImage(icon.getImage());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(ui);
 		frame.pack();
@@ -143,9 +148,9 @@ public class GUController {
 				+ "\tArea: " + from.getArea()
 				+ "\tInvånare: " + from.getPopulation()));
 		list.add(new JLabel("Till:"));
-		list.add(new JLabel("Stad: " + from.getName() 
-				+ "\tArea: " + from.getArea()
-				+ "\tInvånare: " + from.getPopulation()));
+		list.add(new JLabel("Stad: " + to.getName() 
+				+ "\tArea: " + to.getArea()
+				+ "\tInvånare: " + to.getPopulation()));
 		list.add(new JLabel(""));
 		list.add(new JLabel(""));
 		list.add(new JLabel(""));

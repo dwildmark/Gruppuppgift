@@ -99,7 +99,7 @@ public class GUController {
 		 * information om en stad, genom att skicka 
 		 * in en "key" stadens namn som input.
 		 */
-		//Nedanstående block är enbart för test av funktioner.
+		//Nedanstående block är enbart för test av funktioner i det binära sökträdet.
 		String cityTest1 = JOptionPane.showInputDialog("Hämta en stad med dess key: ");
 		Place temp = bst.get(cityTest1);
 		JOptionPane.showMessageDialog(null, "Detta är staden: "+ temp.getName() + " Invånare: " + temp.getPopulation() +
@@ -113,7 +113,6 @@ public class GUController {
 		String cityTest2 = JOptionPane.showInputDialog("Obs!, Staden försvinner! \nTa bort en stad med dess key:  ");
 		Place temp2 = bst.remove(cityTest2);
 		JOptionPane.showMessageDialog(null, bst.get(temp2.getName()));
-		
 		//Här slutar testet.
 		
 	}

@@ -102,7 +102,7 @@ public class GUController {
 
 		bst = new BST(places);
 		
-<<<<<<< HEAD
+
 		/**
 		 * Testet nedan gör att användaren får ut
 		 * information om en stad, genom att skicka 
@@ -124,8 +124,6 @@ public class GUController {
 		JOptionPane.showMessageDialog(null, bst.get(temp2.getName()));
 		//Här slutar testet.
 		
-=======
->>>>>>> origin/master
 	}
 	
 	/**

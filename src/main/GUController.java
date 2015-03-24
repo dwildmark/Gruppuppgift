@@ -23,8 +23,8 @@ public class GUController {
 	private UI ui;
 	private BST bst;
 
-	public GUController(String string, Position mapLeftUp,
-			Position mapRightDown, String string2, String string3) {
+	public GUController(Position mapLeftUp,
+			Position mapRightDown) {
 		String path = new File("src/main/skane.JPG").getAbsolutePath();
 		String pathIcon = new File("src/main/skanevapen.gif").getAbsolutePath();
 		ImageIcon icon = new ImageIcon(pathIcon);

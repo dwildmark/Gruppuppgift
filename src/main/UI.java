@@ -19,31 +19,31 @@ import javax.swing.JTabbedPane;
 public class UI extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private GUController controller;
-	private JPanel route = new JPanel (new GridLayout (3,1));
-	private JPanel sButtons = new JPanel (new GridLayout (4,1));
-	private JPanel allbuttons =  new JPanel (new BorderLayout());
-	private JPanel testBST = new JPanel();
+	private JPanel routePnl = new JPanel (new GridLayout (3,1));
+	private JPanel searchBtnPnl = new JPanel (new GridLayout (4,1));
+	private JPanel interactPnl =  new JPanel (new BorderLayout());
+	private JPanel testBSTPnl = new JPanel();
 	private JLabel sOptions = new JLabel ("Sökalternativ");
 	private JComboBox<Place> dropDownList = new JComboBox<Place>();
 	private JComboBox <Place> dropDownList2 = new JComboBox<Place>();
-	private JTabbedPane alternativ = new JTabbedPane();
+	private JTabbedPane tabbPane = new JTabbedPane();
 	private JPanel mapInfo = new JPanel( new GridLayout(15,1));
 	private JRadioButton dijkstra = new JRadioButton ("Dijkstra");
 	private JRadioButton depth = new JRadioButton ("Sök på djupet");
 	private JRadioButton breadth = new JRadioButton ("Sök på bredden");
-	private JButton search = new JButton ("Sök");
-	private JButton startTest = new JButton("Starta test");
+	private JButton searchBtn = new JButton ("Sök");
+	private JButton startTestBtn = new JButton("Starta test");
 	
 
 	public UI(GUController controller, MapView mapView) {
 		this.controller = controller;
 		setLayout(new BorderLayout());
 		
-		testBST.add(startTest);
+		testBSTPnl.add(startTestBtn);
 		
-		alternativ.addTab("Karta", mapView);
-		alternativ.addTab("Text", mapInfo );
-		alternativ.addTab("BST-test", testBST);
+		tabbPane.addTab("Karta", mapView);
+		tabbPane.addTab("Text", mapInfo );
+		tabbPane.addTab("BST-test", testBSTPnl);
 		
 		ButtonGroup btngrp1 = new ButtonGroup ();
 		btngrp1.add(depth);
@@ -51,21 +51,21 @@ public class UI extends JPanel {
 		btngrp1.add(dijkstra);
 		dijkstra.setSelected(true);
 		
-		route.setPreferredSize( new Dimension (550,100));
-		route.add(dropDownList);
-		route.add(dropDownList2);
-		route.add(search);
+		routePnl.setPreferredSize( new Dimension (550,100));
+		routePnl.add(dropDownList);
+		routePnl.add(dropDownList2);
+		routePnl.add(searchBtn);
 		
-		sButtons.add(sOptions);
-		sButtons.add(dijkstra);
-		sButtons.add(depth);
-		sButtons.add(breadth);
+		searchBtnPnl.add(sOptions);
+		searchBtnPnl.add(dijkstra);
+		searchBtnPnl.add(depth);
+		searchBtnPnl.add(breadth);
 		
-		allbuttons.add(route, BorderLayout.WEST);
-		allbuttons.add(sButtons, BorderLayout.EAST);
+		interactPnl.add(routePnl, BorderLayout.WEST);
+		interactPnl.add(searchBtnPnl, BorderLayout.EAST);
 		
-		add(alternativ, BorderLayout.NORTH);
-		add(allbuttons, BorderLayout.SOUTH);
+		add(tabbPane, BorderLayout.NORTH);
+		add(interactPnl, BorderLayout.SOUTH);
 		
 		Buttons btn = new Buttons();
 		dijkstra.addActionListener(btn);
@@ -73,8 +73,8 @@ public class UI extends JPanel {
 		breadth.addActionListener(btn);
 		dropDownList.addActionListener( btn);
 		dropDownList2.addActionListener(btn);
-		search.addActionListener(btn);
-		startTest.addActionListener(btn);
+		searchBtn.addActionListener(btn);
+		startTestBtn.addActionListener(btn);
 	}
 	
 	public void addLabels(ArrayList<JLabel> labels) {
@@ -82,6 +82,7 @@ public class UI extends JPanel {
 		for(JLabel label : labels) {
 			mapInfo.add(label);
 		}
+		tabbPane.update(getGraphics());
 	}
 	
 	public void addPlacesToList(ArrayList<Place> inList) {
@@ -94,7 +95,7 @@ public class UI extends JPanel {
 	private class Buttons implements ActionListener{
 
 		public void actionPerformed(ActionEvent e){
-			if(e.getSource()==search){
+			if(e.getSource()==searchBtn){
 				if( dijkstra.isSelected()) {
 					controller.searchDijkstra((Place)dropDownList.getSelectedItem(), (Place)dropDownList2.getSelectedItem());
 				} else if( depth.isSelected()) {
@@ -102,7 +103,7 @@ public class UI extends JPanel {
 				} else if( breadth.isSelected()){
 					controller.searchBreadth((Place)dropDownList.getSelectedItem(), (Place)dropDownList2.getSelectedItem());
 				}
-			} else if(e.getSource() == startTest) {
+			} else if(e.getSource() == startTestBtn) {
 				controller.testBST();
 			}
 		}
